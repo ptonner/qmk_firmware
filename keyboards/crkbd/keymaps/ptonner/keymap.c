@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
 TD(TD_LSFT_CAPS),KC_Z,KC_X, KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,KC_SLSH,TD(TD_RSFT_CAPS),\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LALT, LOWER,KC_SPC,   KC_ENT,RAISE, KC_RALT \
+     LALT_T(KC_LGUI), LOWER,KC_SPC,   KC_ENT,RAISE, KC_RALT			\
                               //`--------------------'  `--------------------'
   ),
 
@@ -70,9 +70,9 @@ TD(TD_LSFT_CAPS),KC_Z,KC_X, KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC
   //,-----------------------------------------.                ,-----------------------------------------.
    KC_TILD,KC_EXLM,KC_AT, KC_HASH,KC_DLR,KC_PERC,              KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN, KC_RPRN, KC_DEL,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    _______, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,\
+      KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    _______, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, KC_LCBR,  KC_RCBR, KC_PIPE,\
+    _______, KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LBRC, KC_RBRC, KC_LCBR,  KC_RCBR, KC_PIPE,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                              _______, _______, _______, _______, _______, _______\
                               //`--------------------'  `--------------------'
@@ -82,9 +82,9 @@ TD(TD_LSFT_CAPS),KC_Z,KC_X, KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC
   //,-----------------------------------------.                ,-----------------------------------------.
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    _______, _______, _______, KC_MINS, KC_EQL, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+    _______, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    _______, _______, _______, KC_UNDS, KC_PLUS, _______, _______, _______, _______, _______, _______, _______, 
+    _______, KC_LCBR, KC_RCBR, KC_UNDS, KC_PLUS, _______, _______, _______, _______, _______, _______, KC_BSLS, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                              _______, _______, _______, _______, _______, _______\
                               //`--------------------'  `--------------------'
@@ -94,7 +94,7 @@ TD(TD_LSFT_CAPS),KC_Z,KC_X, KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC
   //,-----------------------------------------.                ,-----------------------------------------.
     _______, TD(TD_RESET), DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    _______, _______,      MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______,  _______, _______,  _______,
+    _______,_______,MU_MOD,AU_ON,AU_OFF,AG_NORM,                AG_SWAP, QWERTY,  _______,  _______, _______,  _______,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     _______, MUV_DE,       MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -151,14 +151,16 @@ void matrix_scan_user(void) {
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
+    // matrix_write_ln(matrix, read_layer_state());
+    // matrix_write_ln(matrix, read_keylog());
     //matrix_write_ln(matrix, read_keylogs());
     //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     //matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
-    matrix_write(matrix, read_logo());
+    // matrix_write(matrix, read_logo());
+    matrix_write_ln(matrix, read_layer_state());
+    matrix_write_ln(matrix, read_keylog());
   }
 }
 
